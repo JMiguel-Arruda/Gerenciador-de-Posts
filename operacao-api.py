@@ -37,7 +37,7 @@ def criar_post():
     try:
         post = requests.post(url, json=dicionario_post, timeout=5)
         post.raise_for_status()
-        print(post.status_code)
+        print(f"Status code: {post.status_code}")
         print(post.json())
     except requests.exceptions.Timeout:
         print("Requisição expirada...")
@@ -65,7 +65,7 @@ def atualizar_post():
 
 #atualizar_post()
 
-def excluir_post(id: int):
+def excluir_post():
     idpost = int(input("Digite o id do post que quer deletar: "))
     url = f"https://jsonplaceholder.typicode.com/posts/{idpost}"
     try:
@@ -78,7 +78,35 @@ def excluir_post(id: int):
     except requests.exceptions.RequestException as e:
         print(f"Erro: {e}")
 
-excluir_post(2)
+#excluir_post(2)
 
+def main():
+    while True:
+        print("DIGITE 1 PARA CONSULTAR UM POST")
+        print("DIGITE 2 PARA LISTAR POSTS DE UM USUÁRIO")
+        print("DIGITE 3 PARA CRIAR UM POST")
+        print("DIGITE 4 PARA ATUALIZAR UM POST")
+        print("DIGITE 5 PARA EXCLUIR UM POST")
+        print("DIGITE 6 PARA SAIR")
+        resp = input("Digite aqui: ")
+        if resp not in("1", "2", "3", "4", "5", "6"):
+            print("Digite um comando válido!")
+            continue
+        if resp == "1" or resp == 1:
+            consultar_post(id = int(input("Digite o ID do post que deseja consultar: ")))
+        elif resp == "2" or resp == 2:
+            listar_posts(usuario=int(input("Digite o numero de usuario que deseja listar os posts: ")))
+        elif resp == "3" or resp == 2:
+            criar_post()
+        elif resp == "4" or resp == 4:
+            atualizar_post()
+        elif resp == "5" or resp == 5:
+            excluir_post()
+        elif resp == "6" or resp == 6:
+            print("Encerrando....")
+            break
+
+if __name__ == "__main__":
+    main()
 
 
